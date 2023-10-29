@@ -1,0 +1,22 @@
+---
+- name: Deploy LAMP Stack and PHP Application
+  hosts: all
+  become: yes
+  remote_user: vagrant
+
+  tasks:
+    - name: Copy Bash Script
+      template:
+        src: /home/vagrant/master_provision.sh  
+        dest: /home/vagrant/slave_provision.sh
+
+    - name: Execute Bash Script
+      command: /home/vagrant/slave_provision.sh
+
+    - name: Set Up Cron Job
+      cron:
+        name: "server-uptime-check"
+        minute: "0"
+        hour: "0"
+        job: /home/vagrant/server-uptime-check.sh
+      

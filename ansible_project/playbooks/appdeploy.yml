@@ -1,0 +1,36 @@
+---
+- name: Deploy LAMP Stack and PHP Application
+  hosts: 192.168.56.39
+  become: yes
+  remote_user: vagrant
+  tasks:
+    - name: Copy Jinja2 Template
+      template:
+        src: /templates/master_provision.sh.j2  
+        dest: /home/vagrant/slave_provision.sh
+      remote_user: vagrant
+      become: yes
+
+    - name: Make Bash Script Executable
+      file:
+        path: /home/vagrant/slave_provision.sh
+        mode: +x
+      remote_user: vagrant
+      become: yes
+
+    - name: Execute Bash Script
+      command: /home/vagrant/slave_provision.sh
+      remote_user: vagrant
+      become: yes
+
+    - name: Set Up Cron Job
+      cron:
+        name: "server-uptime-check"
+        minute: "0"
+        hour: "0"
+        job: /home/vagrant/server-uptime-check.sh
+      remote_user: vagrant
+      become: yes
+
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/id_rsa

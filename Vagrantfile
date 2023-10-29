@@ -14,7 +14,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "master" do |master|
     master.vm.box = "ubuntu/jammy64"
-    master.vm.network "private_network" , type: "dhcp"
+    # master.vm.network "private_network" , type: "dhcp"
+    master.vm.network "public_network"
 
     master.vm.provision "shell" , path: "master_provision.sh"
     master.vm.hostname = "bsapp.local"
@@ -24,7 +25,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "slave" do |slave|
     slave.vm.box = "ubuntu/jammy64"
-    slave.vm.network "private_network" , type: "dhcp" 
+    slave.vm.network "public_network"
 
     slave.vm.provision "shell" , path: "slave_provision.sh"
   end  
@@ -88,4 +89,5 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+  # config.vm.provision "file", source: "master_provision.sh", destination: "/vagrant/master_provision.sh"
 end

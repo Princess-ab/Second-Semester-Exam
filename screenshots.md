@@ -22,7 +22,7 @@ I used the command "sudo systemctl status apache2" and "sudo systemctl status my
 First, i ran the command "lynx http://localhost/index.php" or "lynx http://192.168.56.38/index.php"
 ![lynx](screenshots/5_laravel1.png)
 ![loading](screenshots/6_laravel2.png)
-![Laravel](Screenshots/7_laravel3.png)
-![here we are](Screenshots/8_laravelon.png)
+![Laravel](screenshots/7_laravel3.png)
+![here we are](screenshots/8_laravelon.png)
 
 
